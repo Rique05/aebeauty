@@ -51,6 +51,14 @@ public class CategoriaServico implements Serializable{
 		this.nome = nome;
 	}
 
+	public List<Servico> getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -32,13 +32,14 @@ public class Servico implements Serializable {
 	public Servico() {
 	}
 
-	public Servico(Integer id, String nome, Double valor, Date tempoExecucao, String descricao) {
+	public Servico(Integer id, String nome, Double valor, Date tempoExecucao, String descricao, CategoriaServico categoria) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.valor = valor;
 		this.tempoExecucao = tempoExecucao;
 		this.descricao = descricao;
+		this.categoria = categoria;
 	}
 
 	public Integer getId() {
