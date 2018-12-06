@@ -9,29 +9,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
-public class CategoriaProduto implements Serializable{
+public class CategoriaServico implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(unique = true)
-	private String Nome;
+	@Column(unique = true) //Define a coluna nome como unique
+	private String nome;
 	
-	@OneToMany(mappedBy="categoria")
-	private List<Produto> produtos = new ArrayList<>();	
+	@OneToMany(mappedBy = "categoria")
+	private List<Servico> servicos = new ArrayList<>(); 
 	
-	public CategoriaProduto() {
+	public CategoriaServico() {
 	}
 
-	public CategoriaProduto(Integer id, String nome) {
+	public CategoriaServico(Integer id, String nome) {
 		super();
 		this.id = id;
-		Nome = nome;
+		this.nome = nome;
 	}
 
 	public Integer getId() {
@@ -43,19 +44,11 @@ public class CategoriaProduto implements Serializable{
 	}
 
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		Nome = nome;
-	}
-
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+		this.nome = nome;
 	}
 
 	@Override
@@ -74,7 +67,7 @@ public class CategoriaProduto implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoriaProduto other = (CategoriaProduto) obj;
+		CategoriaServico other = (CategoriaServico) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

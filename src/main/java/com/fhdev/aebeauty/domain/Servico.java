@@ -1,18 +1,18 @@
 package com.fhdev.aebeauty.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class CategoriaProduto implements Serializable{
+public class Servico implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -20,18 +20,25 @@ public class CategoriaProduto implements Serializable{
 	private Integer id;
 	
 	@Column(unique = true)
-	private String Nome;
+	private String nome;
+	private Double valor;
+	private Date tempoExecucao;
+	private String descricao;
 	
-	@OneToMany(mappedBy="categoria")
-	private List<Produto> produtos = new ArrayList<>();	
+	@ManyToOne
+	@JoinColumn(name = "categoria_servico_id")
+	private CategoriaServico categoria;
 	
-	public CategoriaProduto() {
+	public Servico() {
 	}
 
-	public CategoriaProduto(Integer id, String nome) {
+	public Servico(Integer id, String nome, Double valor, Date tempoExecucao, String descricao) {
 		super();
 		this.id = id;
-		Nome = nome;
+		this.nome = nome;
+		this.valor = valor;
+		this.tempoExecucao = tempoExecucao;
+		this.descricao = descricao;
 	}
 
 	public Integer getId() {
@@ -43,19 +50,35 @@ public class CategoriaProduto implements Serializable{
 	}
 
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		Nome = nome;
+		this.nome = nome;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public Double getValor() {
+		return valor;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+
+	public Date getTempoExecucao() {
+		return tempoExecucao;
+	}
+
+	public void setTempoExecucao(Date tempoExecucao) {
+		this.tempoExecucao = tempoExecucao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	@Override
@@ -74,7 +97,7 @@ public class CategoriaProduto implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoriaProduto other = (CategoriaProduto) obj;
+		Servico other = (Servico) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
