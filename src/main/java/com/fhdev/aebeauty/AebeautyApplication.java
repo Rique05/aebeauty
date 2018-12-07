@@ -10,10 +10,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.fhdev.aebeauty.domain.CategoriaProduto;
 import com.fhdev.aebeauty.domain.CategoriaServico;
+import com.fhdev.aebeauty.domain.Cidade;
+import com.fhdev.aebeauty.domain.Estado;
 import com.fhdev.aebeauty.domain.Produto;
 import com.fhdev.aebeauty.domain.Servico;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaServicoRepository;
+import com.fhdev.aebeauty.repositories.CidadeRepository;
+import com.fhdev.aebeauty.repositories.EstadoRepository;
 import com.fhdev.aebeauty.repositories.ProdutoRepository;
 import com.fhdev.aebeauty.repositories.ServicoRepository;
 
@@ -31,6 +35,12 @@ public class AebeautyApplication implements CommandLineRunner{
 	
 	@Autowired
 	private ServicoRepository servicoRepository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
@@ -62,11 +72,37 @@ public class AebeautyApplication implements CommandLineRunner{
 		//formato definido para a hora média gasta para a realização do serviço
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 		
-		Servico serv1 = new Servico(null, "Escova Pequena", 20.00, sdf.parse("2:30"), "Escova para cabelos pequenos.", catServ1);
-		catServ1.getServicos().addAll(Arrays.asList(serv1));
+		Servico serv1 = new Servico(null, "Escova Pequena", 20.00, sdf.parse("1:30"), "Escova para cabelos pequenos.", catServ1);
+		Servico serv2 = new Servico(null, "Escova Grande", 40.00, sdf.parse("2:30"), "Escova para cabelos grandes", catServ1);
+		Servico serv3 = new Servico(null, "Corte Pequeno", 25.00, sdf.parse("1:00"), "Corte para cabelos pequenos", catServ3);
+		Servico serv4 = new Servico(null, "Relaxamento", 20.00, sdf.parse("2:30"), "Relaxamento", catServ2);
+		
+		catServ1.getServicos().addAll(Arrays.asList(serv1, serv2)); //pega a lista de servicos da categoria e preenche com uma lista de serviços instanciados 
+		catServ2.getServicos().addAll(Arrays.asList(serv4));
+		catServ3.getServicos().addAll(Arrays.asList(serv3));
 		
 		categoriaServicoRepository.saveAll(Arrays.asList(catServ1, catServ2, catServ3));
-		servicoRepository.saveAll(Arrays.asList(serv1));
+		servicoRepository.saveAll(Arrays.asList(serv1, serv2, serv3, serv4));
+		
+		//Instâncias de Cidade e Estado
+		
+		//Cidade
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+		
+		//Estado
+		Cidade c1 = new Cidade(null, "Belo Horizonte", est1);
+		Cidade c2 = new Cidade(null, "Campinas", est2);
+		Cidade c3 = new Cidade(null, "Ouro Preto", est1);
+		Cidade c4 = new Cidade(null, "Santos", est2);
+		
+		//Atribuição das cidadees aos estados
+		est1.getCidades().addAll(Arrays.asList(c1,c3));
+		est2.getCidades().addAll(Arrays.asList(c2,c4));
+		
+		//Salva os objetos no banco de dados através dos objetos estadoRepository e cidadeRepository
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
 		
 	}
 }
