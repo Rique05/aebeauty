@@ -11,12 +11,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.fhdev.aebeauty.domain.CategoriaProduto;
 import com.fhdev.aebeauty.domain.CategoriaServico;
 import com.fhdev.aebeauty.domain.Cidade;
+import com.fhdev.aebeauty.domain.Endereco;
 import com.fhdev.aebeauty.domain.Estado;
 import com.fhdev.aebeauty.domain.Produto;
 import com.fhdev.aebeauty.domain.Servico;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaServicoRepository;
 import com.fhdev.aebeauty.repositories.CidadeRepository;
+import com.fhdev.aebeauty.repositories.EnderecoRepository;
 import com.fhdev.aebeauty.repositories.EstadoRepository;
 import com.fhdev.aebeauty.repositories.ProdutoRepository;
 import com.fhdev.aebeauty.repositories.ServicoRepository;
@@ -41,6 +43,9 @@ public class AebeautyApplication implements CommandLineRunner{
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
@@ -103,6 +108,12 @@ public class AebeautyApplication implements CommandLineRunner{
 		//Salva os objetos no banco de dados através dos objetos estadoRepository e cidadeRepository
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
+		
+		//Instâncias de enderecos
+		
+		Endereco end1 = new Endereco(null, "Rua Antonio Jose Ramos","180","Casa","Bauxita","35400-000",c3);
+		
+		enderecoRepository.saveAll(Arrays.asList(end1));
 		
 	}
 }
