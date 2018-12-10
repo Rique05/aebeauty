@@ -15,6 +15,7 @@ import com.fhdev.aebeauty.domain.Endereco;
 import com.fhdev.aebeauty.domain.Estado;
 import com.fhdev.aebeauty.domain.Produto;
 import com.fhdev.aebeauty.domain.Servico;
+import com.fhdev.aebeauty.domain.Usuario;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaServicoRepository;
 import com.fhdev.aebeauty.repositories.CidadeRepository;
@@ -22,6 +23,7 @@ import com.fhdev.aebeauty.repositories.EnderecoRepository;
 import com.fhdev.aebeauty.repositories.EstadoRepository;
 import com.fhdev.aebeauty.repositories.ProdutoRepository;
 import com.fhdev.aebeauty.repositories.ServicoRepository;
+import com.fhdev.aebeauty.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class AebeautyApplication implements CommandLineRunner{
@@ -46,6 +48,9 @@ public class AebeautyApplication implements CommandLineRunner{
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
@@ -109,11 +114,22 @@ public class AebeautyApplication implements CommandLineRunner{
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
 		
-		//Instâncias de enderecos
+		//Instâncias de usuários e endereços
+		Usuario user1 = new Usuario(null,"Fanuel Pereira","fanuel@gmail.com","Xiaomi@15");
+
+		Endereco end1 = new Endereco(null, "Rua Antonio Jose Ramos","180","Casa","Bauxita","35400-000",c3, user1);
+				
+		user1.getEnderecos().addAll(Arrays.asList(end1));
 		
-		Endereco end1 = new Endereco(null, "Rua Antonio Jose Ramos","180","Casa","Bauxita","35400-000",c3);
+		Usuario user2 = new Usuario (null,"Lila Dias","aline@gmail.com","Lila@13");
 		
-		enderecoRepository.saveAll(Arrays.asList(end1));
+		Endereco end2 = new Endereco(null, "Rua Jacarandá", "300", "Apartamento", "Fortes", "62451-002", c4, user2);
+		Endereco end3 = new Endereco(null,"Rua Pelé", "1000", "Casa","Baixada Santista","64585-003", c4, user2);
 		
+		user2.getEnderecos().addAll(Arrays.asList(end2, end3));
+		
+		usuarioRepository.saveAll(Arrays.asList(user1, user2));
+		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
+
 	}
 }

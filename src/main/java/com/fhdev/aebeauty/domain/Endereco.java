@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 @Entity
 public class Endereco implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -27,12 +26,16 @@ public class Endereco implements Serializable{
 	@JoinColumn(name = "cidade_id") //Como não necessita de a cidade conhecer o endereço então foi mapeado aqui e não necessita informar na classe cidade
 	private Cidade cidade;
 	
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+
 	public Endereco() {
 		
 	}
 
 	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep,
-			Cidade cidade) {
+			Cidade cidade, Usuario usuario) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -41,6 +44,7 @@ public class Endereco implements Serializable{
 		this.bairro = bairro;
 		this.cep = cep;
 		this.cidade = cidade;
+		this.usuario = usuario;
 	}
 
 	public Integer getId() {
