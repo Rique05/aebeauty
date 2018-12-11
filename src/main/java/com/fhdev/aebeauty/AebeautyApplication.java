@@ -141,6 +141,9 @@ public class AebeautyApplication implements CommandLineRunner{
 		Telefone tel2 = new Telefone(null,"313456-2801",user1);
 		Telefone tel3 = new Telefone(null,"3199556-2405", user2);
 		
+		user1.getTelefones().addAll(Arrays.asList(tel1,tel2));
+		user2.getTelefones().addAll(Arrays.asList(tel3));
+		
 		telefoneRepository.saveAll(Arrays.asList(tel1,tel2,tel3));
 		
 	}
