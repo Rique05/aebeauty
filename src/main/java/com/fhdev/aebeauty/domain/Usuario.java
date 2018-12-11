@@ -24,6 +24,9 @@ public class Usuario implements Serializable{
 	@OneToMany(mappedBy = "usuario")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "usuario")
+	private List<Telefone> telefones = new ArrayList<>();
+	
 	public Usuario() {
 		
 	}
