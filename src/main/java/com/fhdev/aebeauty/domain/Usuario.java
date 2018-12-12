@@ -2,8 +2,11 @@ package com.fhdev.aebeauty.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,8 +27,11 @@ public class Usuario implements Serializable{
 	@OneToMany(mappedBy = "usuario")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "usuario")
-	private List<Telefone> telefones = new ArrayList<>();
+	//Lista de telefones do tipo Set<String> (Set não permite objetos repetidos)
+	//Entidade fraca
+	@ElementCollection
+	@CollectionTable(name = "telefone")
+	private Set<String> telefones = new HashSet<>();
 	
 	public Usuario() {
 		
@@ -78,12 +84,12 @@ public class Usuario implements Serializable{
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
-	
-	public List<Telefone> getTelefones() {
+
+	public Set<String> getTelefones() {
 		return telefones;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
+	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
 

@@ -15,7 +15,6 @@ import com.fhdev.aebeauty.domain.Endereco;
 import com.fhdev.aebeauty.domain.Estado;
 import com.fhdev.aebeauty.domain.Produto;
 import com.fhdev.aebeauty.domain.Servico;
-import com.fhdev.aebeauty.domain.Telefone;
 import com.fhdev.aebeauty.domain.Usuario;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaServicoRepository;
@@ -24,7 +23,6 @@ import com.fhdev.aebeauty.repositories.EnderecoRepository;
 import com.fhdev.aebeauty.repositories.EstadoRepository;
 import com.fhdev.aebeauty.repositories.ProdutoRepository;
 import com.fhdev.aebeauty.repositories.ServicoRepository;
-import com.fhdev.aebeauty.repositories.TelefoneRepository;
 import com.fhdev.aebeauty.repositories.UsuarioRepository;
 
 @SpringBootApplication
@@ -53,9 +51,6 @@ public class AebeautyApplication implements CommandLineRunner{
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
-	private TelefoneRepository telefoneRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
@@ -133,18 +128,16 @@ public class AebeautyApplication implements CommandLineRunner{
 		
 		user2.getEnderecos().addAll(Arrays.asList(end2, end3));
 		
+		//Adicionando os telefones dos usuários
+		
+		//preenche a lista de telefones com o array gerado por Arrays.asList através do método addAll
+		user1.getTelefones().addAll(Arrays.asList("3199248-6568","313456-2801")); 
+		user2.getTelefones().addAll(Arrays.asList("3199556-2405", "313456-2801"));
+		
 		usuarioRepository.saveAll(Arrays.asList(user1, user2));
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 		
-		//Instâncias de telefone
-		Telefone tel1 = new Telefone(null,"3199248-6568", user1);
-		Telefone tel2 = new Telefone(null,"313456-2801",user1);
-		Telefone tel3 = new Telefone(null,"3199556-2405", user2);
 		
-		user1.getTelefones().addAll(Arrays.asList(tel1,tel2));
-		user2.getTelefones().addAll(Arrays.asList(tel3));
-		
-		telefoneRepository.saveAll(Arrays.asList(tel1,tel2,tel3));
 		
 	}
 }
