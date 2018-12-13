@@ -33,7 +33,7 @@ public class Servico implements Serializable {
 	private CategoriaServico categoria;
 	
 	@OneToMany(mappedBy = "servico")
-	private List<AgendaServico> agendasServico = new ArrayList<>(); 
+	private List<AgendaServico> agendasServicos = new ArrayList<>(); 
 	
 	public Servico() {
 	}
@@ -96,12 +96,12 @@ public class Servico implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public List<AgendaServico> getAgendasServico() {
-		return agendasServico;
+	public List<AgendaServico> getAgendasServicos() {
+		return agendasServicos;
 	}
 
-	public void setAgendasServico(List<AgendaServico> agendasServico) {
-		this.agendasServico = agendasServico;
+	public void setAgendasServicos(List<AgendaServico> agendasServicos) {
+		this.agendasServicos = agendasServicos;
 	}
 
 	@Override

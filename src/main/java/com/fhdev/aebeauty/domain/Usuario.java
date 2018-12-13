@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -32,6 +33,9 @@ public class Usuario implements Serializable{
 	@ElementCollection
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<AgendaServico> agendasServicos = new ArrayList<>();
 	
 	public Usuario() {
 		
@@ -91,6 +95,14 @@ public class Usuario implements Serializable{
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+	
+	public List<AgendaServico> getAgendasServicos() {
+		return agendasServicos;
+	}
+
+	public void setAgendasServicos(List<AgendaServico> agendasServicos) {
+		this.agendasServicos = agendasServicos;
 	}
 
 	@Override

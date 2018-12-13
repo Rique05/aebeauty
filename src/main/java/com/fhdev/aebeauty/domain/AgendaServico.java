@@ -29,6 +29,10 @@ public class AgendaServico implements Serializable{
 	@JoinColumn(name = "servico_id")
 	private Servico servico;
 	
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+	
 	public AgendaServico() {
 		
 	}
@@ -71,6 +75,14 @@ public class AgendaServico implements Serializable{
 
 	public void setServico(Servico servico) {
 		this.servico = servico;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

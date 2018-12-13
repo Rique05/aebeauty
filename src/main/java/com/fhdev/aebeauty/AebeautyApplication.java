@@ -159,11 +159,21 @@ public class AebeautyApplication implements CommandLineRunner{
 		AgendaServico agenda1 = new AgendaServico(null, sdf1.parse("2018-12-13 08:00"), StatusAgenda.toEnum(1) , serv5);
 		
 		//Adiciona a agenda agenda1 à lista de agendas do serviço serv5
-		serv5.getAgendasServico().addAll(Arrays.asList(agenda1));
+		serv5.getAgendasServicos().addAll(Arrays.asList(agenda1));
 		
+		//Vincula a agenda1 ao usuário user1
+		user2.getAgendasServicos().addAll(Arrays.asList(agenda1));
+		
+		//Muda o status da agenda para status 2 "Pendente"
+		agenda1.setStatus(StatusAgenda.toEnum(2));
+		
+		//Vincula o usuario user1 à agenda 1
+		agenda1.setUsuario(user2);
+				
 		//Salva as instâncias no banco de dados
 		categoriaServicoRepository.saveAll(Arrays.asList(catServ4));
 		servicoRepository.saveAll(Arrays.asList(serv5));
 		agendaServicoRepository.saveAll(Arrays.asList(agenda1));
+		
 	}
 }
