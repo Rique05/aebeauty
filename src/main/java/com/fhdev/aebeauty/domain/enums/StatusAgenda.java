@@ -1,5 +1,6 @@
 package com.fhdev.aebeauty.domain.enums;
 
+//Implementação sofisticada de um tipo enumerado (StatusAgenda)
 public enum StatusAgenda {
 	
 	ABERTA(1, "Aberta"),

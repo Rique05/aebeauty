@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.fhdev.aebeauty.domain.AgendaServico;
 import com.fhdev.aebeauty.domain.CategoriaProduto;
 import com.fhdev.aebeauty.domain.CategoriaServico;
 import com.fhdev.aebeauty.domain.Cidade;
@@ -16,6 +17,8 @@ import com.fhdev.aebeauty.domain.Estado;
 import com.fhdev.aebeauty.domain.Produto;
 import com.fhdev.aebeauty.domain.Servico;
 import com.fhdev.aebeauty.domain.Usuario;
+import com.fhdev.aebeauty.domain.enums.StatusAgenda;
+import com.fhdev.aebeauty.repositories.AgendaServicoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaServicoRepository;
 import com.fhdev.aebeauty.repositories.CidadeRepository;
@@ -52,6 +55,9 @@ public class AebeautyApplication implements CommandLineRunner{
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	@Autowired
+	private AgendaServicoRepository agendaServicoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
 	}
@@ -78,14 +84,15 @@ public class AebeautyApplication implements CommandLineRunner{
 		CategoriaServico catServ1 = new CategoriaServico(null,"Escova");
 		CategoriaServico catServ2 = new CategoriaServico(null, "Alisamento");
 		CategoriaServico catServ3 = new CategoriaServico(null, "Corte");
-	
-		//formato definido para a hora média gasta para a realização do serviço
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+		CategoriaServico catServ4 = new CategoriaServico(null, "Rolinho");
 		
-		Servico serv1 = new Servico(null, "Escova Pequena", 20.00, sdf.parse("1:30"), "Escova para cabelos pequenos.", catServ1);
-		Servico serv2 = new Servico(null, "Escova Grande", 40.00, sdf.parse("2:30"), "Escova para cabelos grandes", catServ1);
-		Servico serv3 = new Servico(null, "Corte Pequeno", 25.00, sdf.parse("1:00"), "Corte para cabelos pequenos", catServ3);
-		Servico serv4 = new Servico(null, "Relaxamento", 20.00, sdf.parse("2:30"), "Relaxamento", catServ2);
+		//formato definido para a hora média gasta para a realização do serviço
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+		Servico serv1 = new Servico(null, "Escova Pequena", 20.00, sdf.parse("0000-00-00 1:30"), "Escova para cabelos pequenos.", catServ1);
+		Servico serv2 = new Servico(null, "Escova Grande", 40.00, sdf.parse("0000-00-00 2:30"), "Escova para cabelos grandes", catServ1);
+		Servico serv3 = new Servico(null, "Corte Pequeno", 25.00, sdf.parse("0000-00-00 1:00"), "Corte para cabelos pequenos", catServ3);
+		Servico serv4 = new Servico(null, "Relaxamento", 20.00, sdf.parse("0000-00-00 2:30"), "Relaxamento", catServ2);
 		
 		catServ1.getServicos().addAll(Arrays.asList(serv1, serv2)); //pega a lista de servicos da categoria e preenche com uma lista de serviços instanciados 
 		catServ2.getServicos().addAll(Arrays.asList(serv4));
@@ -138,6 +145,25 @@ public class AebeautyApplication implements CommandLineRunner{
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 		
 		
+		//Instância de agenda de servico
+		//formato da data e hora da agenda
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
+		//Serviço instanciado para exemplo
+		Servico serv5 = new Servico(null, "Rolinho Grande", 20.00, sdf.parse("0000-00-00 2:10"), "Rolinho para cabelos grandes", catServ4);
+		
+		//Adiciona o serviço serv5 à lista da serviços da categoria catServ4
+		catServ4.getServicos().addAll(Arrays.asList(serv5));
+		
+		//Instância da agenda
+		AgendaServico agenda1 = new AgendaServico(null, sdf1.parse("2018-12-13 08:00"), StatusAgenda.toEnum(1) , serv5);
+		
+		//Adiciona a agenda agenda1 à lista de agendas do serviço serv5
+		serv5.getAgendasServico().addAll(Arrays.asList(agenda1));
+		
+		//Salva as instâncias no banco de dados
+		categoriaServicoRepository.saveAll(Arrays.asList(catServ4));
+		servicoRepository.saveAll(Arrays.asList(serv5));
+		agendaServicoRepository.saveAll(Arrays.asList(agenda1));
 	}
 }

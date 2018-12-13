@@ -1,7 +1,9 @@
 package com.fhdev.aebeauty.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Servico implements Serializable {
@@ -28,6 +31,9 @@ public class Servico implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "categoria_servico_id")
 	private CategoriaServico categoria;
+	
+	@OneToMany(mappedBy = "servico")
+	private List<AgendaServico> agendasServico = new ArrayList<>(); 
 	
 	public Servico() {
 	}
@@ -80,6 +86,22 @@ public class Servico implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public CategoriaServico getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaServico categoria) {
+		this.categoria = categoria;
+	}
+
+	public List<AgendaServico> getAgendasServico() {
+		return agendasServico;
+	}
+
+	public void setAgendasServico(List<AgendaServico> agendasServico) {
+		this.agendasServico = agendasServico;
 	}
 
 	@Override
