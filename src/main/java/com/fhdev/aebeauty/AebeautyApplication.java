@@ -18,6 +18,7 @@ import com.fhdev.aebeauty.domain.Produto;
 import com.fhdev.aebeauty.domain.Servico;
 import com.fhdev.aebeauty.domain.Usuario;
 import com.fhdev.aebeauty.domain.enums.StatusAgenda;
+import com.fhdev.aebeauty.domain.enums.TipoServico;
 import com.fhdev.aebeauty.repositories.AgendaServicoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaServicoRepository;
@@ -83,16 +84,16 @@ public class AebeautyApplication implements CommandLineRunner{
 		
 		CategoriaServico catServ1 = new CategoriaServico(null,"Escova");
 		CategoriaServico catServ2 = new CategoriaServico(null, "Alisamento");
-		CategoriaServico catServ3 = new CategoriaServico(null, "Corte");
+		CategoriaServico catServ3 = new CategoriaServico(null, "Unha");
 		CategoriaServico catServ4 = new CategoriaServico(null, "Rolinho");
 		
 		//formato definido para a hora média gasta para a realização do serviço
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		
-		Servico serv1 = new Servico(null, "Escova Pequena", 20.00, sdf.parse("0000-00-00 1:30"), "Escova para cabelos pequenos.", catServ1);
-		Servico serv2 = new Servico(null, "Escova Grande", 40.00, sdf.parse("0000-00-00 2:30"), "Escova para cabelos grandes", catServ1);
-		Servico serv3 = new Servico(null, "Corte Pequeno", 25.00, sdf.parse("0000-00-00 1:00"), "Corte para cabelos pequenos", catServ3);
-		Servico serv4 = new Servico(null, "Relaxamento", 20.00, sdf.parse("0000-00-00 2:30"), "Relaxamento", catServ2);
+		Servico serv1 = new Servico(null, "Escova Pequena", 20.00, sdf.parse("1:30"), "Escova para cabelos pequenos.", TipoServico.CABELO,catServ1);
+		Servico serv2 = new Servico(null, "Escova Grande", 40.00, sdf.parse("2:30"), "Escova para cabelos grandes", TipoServico.CABELO,catServ1);
+		Servico serv3 = new Servico(null, "Unha Francesa", 15.00, sdf.parse("1:00"), "Unha Francesa", TipoServico.UNHA ,catServ3);
+		Servico serv4 = new Servico(null, "Relaxamento", 20.00, sdf.parse("2:30"), "Relaxamento", TipoServico.CABELO,catServ2);
 		
 		catServ1.getServicos().addAll(Arrays.asList(serv1, serv2)); //pega a lista de servicos da categoria e preenche com uma lista de serviços instanciados 
 		catServ2.getServicos().addAll(Arrays.asList(serv4));
@@ -150,7 +151,7 @@ public class AebeautyApplication implements CommandLineRunner{
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
 		//Serviço instanciado para exemplo
-		Servico serv5 = new Servico(null, "Rolinho Grande", 20.00, sdf.parse("0000-00-00 2:10"), "Rolinho para cabelos grandes", catServ4);
+		Servico serv5 = new Servico(null, "Rolinho Grande", 20.00, sdf.parse("2:10"), "Rolinho para cabelos grandes", TipoServico.CABELO, catServ4);
 		
 		//Adiciona o serviço serv5 à lista da serviços da categoria catServ4
 		catServ4.getServicos().addAll(Arrays.asList(serv5));
