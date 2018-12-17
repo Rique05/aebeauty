@@ -23,7 +23,7 @@ public enum TipoServico {
 		return descricao;
 	}
 
-	//Método que retorna um objeto do tipo StatusAgenda
+	//Método que retorna um objeto do tipo TipoServico
 		public static TipoServico toEnum(Integer codigo) {
 			
 			if(codigo == null) {

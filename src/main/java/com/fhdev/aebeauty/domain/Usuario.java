@@ -37,6 +37,9 @@ public class Usuario implements Serializable{
 	@OneToMany(mappedBy = "usuario")
 	private List<AgendaServico> agendasServicos = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "usuario")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Usuario() {
 		
 	}
@@ -103,6 +106,14 @@ public class Usuario implements Serializable{
 
 	public void setAgendasServicos(List<AgendaServico> agendasServicos) {
 		this.agendasServicos = agendasServicos;
+	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override
