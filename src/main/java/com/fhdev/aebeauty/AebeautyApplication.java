@@ -14,11 +14,13 @@ import com.fhdev.aebeauty.domain.CategoriaServico;
 import com.fhdev.aebeauty.domain.Cidade;
 import com.fhdev.aebeauty.domain.Endereco;
 import com.fhdev.aebeauty.domain.Estado;
+import com.fhdev.aebeauty.domain.Funcionario;
 import com.fhdev.aebeauty.domain.Pedido;
 import com.fhdev.aebeauty.domain.Produto;
 import com.fhdev.aebeauty.domain.Servico;
 import com.fhdev.aebeauty.domain.Usuario;
 import com.fhdev.aebeauty.domain.enums.StatusAgenda;
+import com.fhdev.aebeauty.domain.enums.TipoFuncionario;
 import com.fhdev.aebeauty.domain.enums.TipoServico;
 import com.fhdev.aebeauty.repositories.AgendaServicoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
@@ -26,6 +28,7 @@ import com.fhdev.aebeauty.repositories.CategoriaServicoRepository;
 import com.fhdev.aebeauty.repositories.CidadeRepository;
 import com.fhdev.aebeauty.repositories.EnderecoRepository;
 import com.fhdev.aebeauty.repositories.EstadoRepository;
+import com.fhdev.aebeauty.repositories.FuncionarioRepository;
 import com.fhdev.aebeauty.repositories.PedidoRepository;
 import com.fhdev.aebeauty.repositories.ProdutoRepository;
 import com.fhdev.aebeauty.repositories.ServicoRepository;
@@ -63,6 +66,9 @@ public class AebeautyApplication implements CommandLineRunner{
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private FuncionarioRepository funcionarioRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
@@ -193,6 +199,17 @@ public class AebeautyApplication implements CommandLineRunner{
 		
 		usuarioRepository.save(user3);
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
+		
+		//Instancia de Funcionario
+		
+		Usuario user4 = new Usuario(null, "Marly Santos", "marly_santos@teste.com","Ico2006");
+		Funcionario func1 = new Funcionario(null,TipoFuncionario.GERENTE, user4);
+		
+		Usuario user5 = new Usuario(null, "Aline Dias", "aline12@teste.com.br", "XB50");
+		Funcionario func2 = new Funcionario(null,TipoFuncionario.MANICURE, user5);
+		
+		usuarioRepository.saveAll(Arrays.asList(user4, user5));
+		funcionarioRepository.saveAll(Arrays.asList(func1, func2));
 		
 	}
 }

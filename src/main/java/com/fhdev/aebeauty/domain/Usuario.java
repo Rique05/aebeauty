@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario implements Serializable{
@@ -40,6 +41,9 @@ public class Usuario implements Serializable{
 	@OneToMany(mappedBy = "usuario")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
+	@OneToOne(mappedBy = "usuario")
+	private Funcionario funcionario;
+	
 	public Usuario() {
 		
 	}
@@ -51,7 +55,7 @@ public class Usuario implements Serializable{
 		this.email = email;
 		this.senha = senha;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -114,6 +118,14 @@ public class Usuario implements Serializable{
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+	
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
 	@Override
