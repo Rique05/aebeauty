@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -41,7 +42,8 @@ public class Usuario implements Serializable{
 	@OneToMany(mappedBy = "usuario")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
-	@OneToOne(mappedBy = "usuario")
+	//Necessário para não acontecer o erro de entidade transiente ao salvar o funcionário e o usuário dele
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
 	private Funcionario funcionario;
 	
 	public Usuario() {

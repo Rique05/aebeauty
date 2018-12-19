@@ -15,11 +15,14 @@ import com.fhdev.aebeauty.domain.Cidade;
 import com.fhdev.aebeauty.domain.Endereco;
 import com.fhdev.aebeauty.domain.Estado;
 import com.fhdev.aebeauty.domain.Funcionario;
+import com.fhdev.aebeauty.domain.Pagamento;
+import com.fhdev.aebeauty.domain.PagamentoCartao;
 import com.fhdev.aebeauty.domain.Pedido;
 import com.fhdev.aebeauty.domain.Produto;
 import com.fhdev.aebeauty.domain.Servico;
 import com.fhdev.aebeauty.domain.Usuario;
 import com.fhdev.aebeauty.domain.enums.StatusAgenda;
+import com.fhdev.aebeauty.domain.enums.StatusPagamento;
 import com.fhdev.aebeauty.domain.enums.TipoFuncionario;
 import com.fhdev.aebeauty.domain.enums.TipoServico;
 import com.fhdev.aebeauty.repositories.AgendaServicoRepository;
@@ -29,6 +32,7 @@ import com.fhdev.aebeauty.repositories.CidadeRepository;
 import com.fhdev.aebeauty.repositories.EnderecoRepository;
 import com.fhdev.aebeauty.repositories.EstadoRepository;
 import com.fhdev.aebeauty.repositories.FuncionarioRepository;
+import com.fhdev.aebeauty.repositories.PagamentoRepository;
 import com.fhdev.aebeauty.repositories.PedidoRepository;
 import com.fhdev.aebeauty.repositories.ProdutoRepository;
 import com.fhdev.aebeauty.repositories.ServicoRepository;
@@ -69,6 +73,9 @@ public class AebeautyApplication implements CommandLineRunner{
 	
 	@Autowired
 	private FuncionarioRepository funcionarioRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
@@ -159,7 +166,7 @@ public class AebeautyApplication implements CommandLineRunner{
 		
 		//Instância de agenda de servico
 		//formato da data e hora da agenda
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 		
 		//Serviço instanciado para exemplo
 		Servico serv5 = new Servico(null, "Rolinho Grande", 20.00, sdf.parse("2:10"), "Rolinho para cabelos grandes", TipoServico.CABELO, catServ4);
@@ -168,7 +175,7 @@ public class AebeautyApplication implements CommandLineRunner{
 		catServ4.getServicos().addAll(Arrays.asList(serv5));
 		
 		//Instância da agenda
-		AgendaServico agenda1 = new AgendaServico(null, sdf1.parse("2018-12-13 08:00"), StatusAgenda.toEnum(1) , serv5);
+		AgendaServico agenda1 = new AgendaServico(null, sdf1.parse("03-12-2018 10:00"), StatusAgenda.toEnum(1) , serv5);
 		
 		//Adiciona a agenda agenda1 à lista de agendas do serviço serv5
 		serv5.getAgendasServicos().addAll(Arrays.asList(agenda1));
@@ -190,9 +197,9 @@ public class AebeautyApplication implements CommandLineRunner{
 		//Instancias de Pedidos
 		Usuario user3 = new Usuario(null,"Ermita", "ermita@teste.com","EGS123@");
 		
-		Pedido pedido1 = new Pedido(null, sdf1.parse("2018-12-05 15:42:20"), user3);
-		Pedido pedido2 = new Pedido(null, sdf1.parse("2018-12-09 16:16:16"), user3);
-		Pedido pedido3 = new Pedido(null, sdf1.parse("2018-12-13 09:22:50"), user2);
+		Pedido pedido1 = new Pedido(null, sdf1.parse("11-12-2018 07:00"), user3);
+		Pedido pedido2 = new Pedido(null, sdf1.parse("22-12-2018 08:00"), user3);
+		Pedido pedido3 = new Pedido(null, sdf1.parse("27-12-2018 13:00"), user2);
 		
 		user3.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
 		user2.getPedidos().addAll(Arrays.asList(pedido3));
@@ -204,12 +211,23 @@ public class AebeautyApplication implements CommandLineRunner{
 		
 		Usuario user4 = new Usuario(null, "Marly Santos", "marly_santos@teste.com","Ico2006");
 		Funcionario func1 = new Funcionario(null,TipoFuncionario.GERENTE, user4);
+		user4.setFuncionario(func1);
 		
 		Usuario user5 = new Usuario(null, "Aline Dias", "aline12@teste.com.br", "XB50");
 		Funcionario func2 = new Funcionario(null,TipoFuncionario.MANICURE, user5);
+		user5.setFuncionario(func2);
 		
 		usuarioRepository.saveAll(Arrays.asList(user4, user5));
 		funcionarioRepository.saveAll(Arrays.asList(func1, func2));
+		
+		//Instancias de Pagamento
+		Pedido pedido4 = new Pedido(null, sdf1.parse("29-12-2018 19:00"), user1);
+		//Pagamento do pedido4
+		Pagamento pgto1 = new PagamentoCartao(null, StatusPagamento.PENDENTE, pedido4, 7);
+		pedido4.setPagamento(pgto1);
+		
+		pedidoRepository.save(pedido4);
+		pagamentoRepository.save(pgto1);
 		
 	}
 }

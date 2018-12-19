@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fhdev.aebeauty.domain.enums.TipoFuncionario;
@@ -16,30 +17,31 @@ public class Funcionario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer registroFuncionario;
+	private Integer id;
+	
 	private Integer tipoFuncionario;
 	
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
+	@MapsId //Anotação necessária para o funcionário herdar o mesmo id do usuário dele	
 	private Usuario usuario;
 	
 	public Funcionario() {		
 	}
 
-	public Funcionario(Integer registroFuncionario, TipoFuncionario tipoFuncionario, Usuario usuario) {
+	public Funcionario(Integer id, TipoFuncionario tipoFuncionario, Usuario usuario) {
 		super();
-		this.registroFuncionario = registroFuncionario;
+		this.id = id;
 		this.tipoFuncionario = tipoFuncionario.getCodigo();
 		this.usuario = usuario;
 	}
-
-	public Integer getRegistroFuncionario() {
-		return registroFuncionario;
+	
+	public Integer getId() {
+		return id;
 	}
 
-	public void setRegistroFuncionario(Integer registroFuncionario) {
-		this.registroFuncionario = registroFuncionario;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public TipoFuncionario getTipoFuncionario() {
@@ -62,7 +64,7 @@ public class Funcionario implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((registroFuncionario == null) ? 0 : registroFuncionario.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -75,12 +77,12 @@ public class Funcionario implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Funcionario other = (Funcionario) obj;
-		if (registroFuncionario == null) {
-			if (other.registroFuncionario != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!registroFuncionario.equals(other.registroFuncionario))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
+
 }

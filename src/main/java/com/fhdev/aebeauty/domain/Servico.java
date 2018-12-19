@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fhdev.aebeauty.domain.enums.StatusAgenda;
 import com.fhdev.aebeauty.domain.enums.TipoServico;
 
 @Entity
