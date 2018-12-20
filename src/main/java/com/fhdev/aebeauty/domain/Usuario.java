@@ -46,6 +46,9 @@ public class Usuario implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
 	private Funcionario funcionario;
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+	private Fornecedor fornecedor;
+	
 	public Usuario() {
 		
 	}
@@ -128,6 +131,14 @@ public class Usuario implements Serializable{
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
+	}
+	
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 	@Override

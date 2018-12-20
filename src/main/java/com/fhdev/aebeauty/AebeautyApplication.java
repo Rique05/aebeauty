@@ -14,6 +14,7 @@ import com.fhdev.aebeauty.domain.CategoriaServico;
 import com.fhdev.aebeauty.domain.Cidade;
 import com.fhdev.aebeauty.domain.Endereco;
 import com.fhdev.aebeauty.domain.Estado;
+import com.fhdev.aebeauty.domain.Fornecedor;
 import com.fhdev.aebeauty.domain.Funcionario;
 import com.fhdev.aebeauty.domain.Pagamento;
 import com.fhdev.aebeauty.domain.PagamentoCartao;
@@ -31,6 +32,7 @@ import com.fhdev.aebeauty.repositories.CategoriaServicoRepository;
 import com.fhdev.aebeauty.repositories.CidadeRepository;
 import com.fhdev.aebeauty.repositories.EnderecoRepository;
 import com.fhdev.aebeauty.repositories.EstadoRepository;
+import com.fhdev.aebeauty.repositories.FornecedorRepository;
 import com.fhdev.aebeauty.repositories.FuncionarioRepository;
 import com.fhdev.aebeauty.repositories.PagamentoRepository;
 import com.fhdev.aebeauty.repositories.PedidoRepository;
@@ -76,6 +78,9 @@ public class AebeautyApplication implements CommandLineRunner{
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private FornecedorRepository fornecedorRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
@@ -228,6 +233,18 @@ public class AebeautyApplication implements CommandLineRunner{
 		
 		pedidoRepository.save(pedido4);
 		pagamentoRepository.save(pgto1);
+		
+		//Instancias de fornecedor
+		Usuario user6 = new Usuario(null,"Ricardo de Souza","ricardosz@teste.com","Ricdoz23");
+		Fornecedor forn1 = new Fornecedor(null,"06.114.300/0001-13", user6);
+		user6.setFornecedor(forn1);
+		
+		Usuario user7 = new Usuario(null, "Paulo Almeida", "pauloal@teste.com", "paulinhoDP");
+		Fornecedor forn2 = new Fornecedor(null, "01.254.234/0001-11",user7);
+		user7.setFornecedor(forn2);
+		
+		usuarioRepository.saveAll(Arrays.asList(user6, user7));
+		fornecedorRepository.saveAll(Arrays.asList(forn1, forn2));
 		
 	}
 }
