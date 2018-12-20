@@ -201,13 +201,14 @@ public class AebeautyApplication implements CommandLineRunner{
 		
 		//Instancias de Pedidos
 		Usuario user3 = new Usuario(null,"Ermita", "ermita@teste.com","EGS123@");
+
 		
-		Pedido pedido1 = new Pedido(null, sdf1.parse("11-12-2018 07:00"), user3);
-		Pedido pedido2 = new Pedido(null, sdf1.parse("22-12-2018 08:00"), user3);
-		Pedido pedido3 = new Pedido(null, sdf1.parse("27-12-2018 13:00"), user2);
+		Pedido pedido1 = new Pedido(null, sdf1.parse("11-12-2018 07:00"), user2, end2);
+		Pedido pedido2 = new Pedido(null, sdf1.parse("22-12-2018 08:00"), user2, end3);
+		Pedido pedido3 = new Pedido(null, sdf1.parse("27-12-2018 13:00"), user1, end1);
 		
-		user3.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
-		user2.getPedidos().addAll(Arrays.asList(pedido3));
+		user2.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
+		user1.getPedidos().addAll(Arrays.asList(pedido3));
 		
 		usuarioRepository.save(user3);
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
@@ -226,7 +227,7 @@ public class AebeautyApplication implements CommandLineRunner{
 		funcionarioRepository.saveAll(Arrays.asList(func1, func2));
 		
 		//Instancias de Pagamento
-		Pedido pedido4 = new Pedido(null, sdf1.parse("29-12-2018 19:00"), user1);
+		Pedido pedido4 = new Pedido(null, sdf1.parse("29-12-2018 19:00"), user1, end1);
 		//Pagamento do pedido4
 		Pagamento pgto1 = new PagamentoCartao(null, StatusPagamento.PENDENTE, pedido4, 7);
 		pedido4.setPagamento(pgto1);
