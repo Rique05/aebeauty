@@ -108,7 +108,7 @@ public class AebeautyApplication implements CommandLineRunner{
 		CategoriaServico catServ1 = new CategoriaServico(null,"Escova");
 		CategoriaServico catServ2 = new CategoriaServico(null, "Alisamento");
 		CategoriaServico catServ3 = new CategoriaServico(null, "Unha");
-		CategoriaServico catServ4 = new CategoriaServico(null, "Rolinho");
+		
 		
 		//formato definido para a hora média gasta para a realização do serviço
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -169,35 +169,22 @@ public class AebeautyApplication implements CommandLineRunner{
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 		
 		
-		//Instância de agenda de servico
+		//Instância de CategoriaServico e Servico
 		//formato da data e hora da agenda
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		
+		//Categoria servico
+		CategoriaServico catServ4 = new CategoriaServico(null, "Rolinho");
 		
 		//Serviço instanciado para exemplo
 		Servico serv5 = new Servico(null, "Rolinho Grande", 20.00, sdf.parse("2:10"), "Rolinho para cabelos grandes", TipoServico.CABELO, catServ4);
 		
 		//Adiciona o serviço serv5 à lista da serviços da categoria catServ4
 		catServ4.getServicos().addAll(Arrays.asList(serv5));
-		
-		//Instância da agenda
-		AgendaServico agenda1 = new AgendaServico(null, sdf1.parse("03-12-2018 10:00"), StatusAgenda.toEnum(1) , serv5);
-		
-		//Adiciona a agenda agenda1 à lista de agendas do serviço serv5
-		serv5.getAgendasServicos().addAll(Arrays.asList(agenda1));
-		
-		//Vincula a agenda1 ao usuário user1
-		user2.getAgendasServicos().addAll(Arrays.asList(agenda1));
-		
-		//Muda o status da agenda para status 2 "Pendente"
-		agenda1.setStatus(StatusAgenda.toEnum(2));
-		
-		//Vincula o usuario user1 à agenda 1
-		agenda1.setUsuario(user2);
 				
 		//Salva as instâncias no banco de dados
 		categoriaServicoRepository.saveAll(Arrays.asList(catServ4));
 		servicoRepository.saveAll(Arrays.asList(serv5));
-		agendaServicoRepository.saveAll(Arrays.asList(agenda1));
 		
 		//Instancias de Pedidos
 		Usuario user3 = new Usuario(null,"Ermita", "ermita@teste.com","EGS123@");
@@ -247,5 +234,21 @@ public class AebeautyApplication implements CommandLineRunner{
 		usuarioRepository.saveAll(Arrays.asList(user6, user7));
 		fornecedorRepository.saveAll(Arrays.asList(forn1, forn2));
 		
+		//Funcionario - AgendaServico
+		Usuario user8 = new Usuario(null,"Cintia Santos", "cintia@teste.com", "cintia123");
+		Funcionario func3 = new Funcionario(null, TipoFuncionario.MANICURE, user8);
+		user8.setFuncionario(func3);
+		
+		//Instancias das Agendas
+		AgendaServico agenda3 = new AgendaServico(null, sdf1.parse("24-12-2018 19:30"), StatusAgenda.ABERTA, serv3, func3);
+		AgendaServico agenda4 = new AgendaServico(null, sdf1.parse("24-12-2018 19:30"),StatusAgenda.ABERTA, serv1, func1);
+		
+		//Atribui o cliente que marcou a agenda4 (user2)
+		agenda4.setUsuario(user2);
+		
+		usuarioRepository.saveAll(Arrays.asList(user8));
+		funcionarioRepository.saveAll(Arrays.asList(func3));
+		agendaServicoRepository.saveAll(Arrays.asList(agenda3, agenda4));
+			
 	}
 }

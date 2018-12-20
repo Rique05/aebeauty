@@ -33,16 +33,21 @@ public class AgendaServico implements Serializable{
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
+	@ManyToOne
+	@JoinColumn(name = "funcionario_id")
+	private Funcionario funcionario;
+	
 	public AgendaServico() {
 		
 	}
 
-	public AgendaServico(Integer id, Date dataHora, StatusAgenda status, Servico servico) {
+	public AgendaServico(Integer id, Date dataHora, StatusAgenda status, Servico servico, Funcionario funcionario) {
 		super();
 		this.id = id;
 		this.dataHora = dataHora;
 		this.status = status.getCodigo();
 		this.servico = servico;
+		this.funcionario = funcionario;
 	}
 
 	public Integer getId() {
@@ -83,6 +88,14 @@ public class AgendaServico implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
 	@Override

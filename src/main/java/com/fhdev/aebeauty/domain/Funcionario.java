@@ -1,13 +1,14 @@
 package com.fhdev.aebeauty.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fhdev.aebeauty.domain.enums.TipoFuncionario;
@@ -25,6 +26,9 @@ public class Funcionario implements Serializable{
 	@JoinColumn(name = "usuario_id")
 	@MapsId //Anotação necessária para o funcionário herdar o mesmo id do usuário dele	
 	private Usuario usuario;
+	
+	@OneToMany(mappedBy = "funcionario")
+	private List<AgendaServico> agendasServicos = new ArrayList<>();
 	
 	public Funcionario() {		
 	}
@@ -58,6 +62,14 @@ public class Funcionario implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public List<AgendaServico> getAgendasServicos() {
+		return agendasServicos;
+	}
+
+	public void setAgendasServicos(List<AgendaServico> agendasServicos) {
+		this.agendasServicos = agendasServicos;
 	}
 
 	@Override
