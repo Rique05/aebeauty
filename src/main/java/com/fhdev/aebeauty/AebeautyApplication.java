@@ -16,6 +16,7 @@ import com.fhdev.aebeauty.domain.Endereco;
 import com.fhdev.aebeauty.domain.Estado;
 import com.fhdev.aebeauty.domain.Fornecedor;
 import com.fhdev.aebeauty.domain.Funcionario;
+import com.fhdev.aebeauty.domain.ItemPedido;
 import com.fhdev.aebeauty.domain.Pagamento;
 import com.fhdev.aebeauty.domain.PagamentoCartao;
 import com.fhdev.aebeauty.domain.Pedido;
@@ -34,6 +35,7 @@ import com.fhdev.aebeauty.repositories.EnderecoRepository;
 import com.fhdev.aebeauty.repositories.EstadoRepository;
 import com.fhdev.aebeauty.repositories.FornecedorRepository;
 import com.fhdev.aebeauty.repositories.FuncionarioRepository;
+import com.fhdev.aebeauty.repositories.ItemPedidoRepository;
 import com.fhdev.aebeauty.repositories.PagamentoRepository;
 import com.fhdev.aebeauty.repositories.PedidoRepository;
 import com.fhdev.aebeauty.repositories.ProdutoRepository;
@@ -81,6 +83,9 @@ public class AebeautyApplication implements CommandLineRunner{
 	
 	@Autowired
 	private FornecedorRepository fornecedorRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
@@ -250,5 +255,18 @@ public class AebeautyApplication implements CommandLineRunner{
 		funcionarioRepository.saveAll(Arrays.asList(func3));
 		agendaServicoRepository.saveAll(Arrays.asList(agenda3, agenda4));
 			
+		//Instâncias dos itens de pedido
+		
+		Pedido pedido5 = new Pedido(null, sdf1.parse("25-12-2018 20:12"), user2, end1);
+		ItemPedido item1 = new ItemPedido(pedido5, p1, 5.00, 5, 40.00);
+		ItemPedido item2 = new ItemPedido(pedido5, p2, 10.00, 6, 70.00);
+		
+		pedido5.getItens().addAll(Arrays.asList(item1, item2));
+		p1.getItens().addAll(Arrays.asList(item1));
+		p2.getItens().addAll(Arrays.asList(item2));
+		
+		pedidoRepository.save(pedido5);
+		itemPedidoRepository.saveAll(Arrays.asList(item1, item2));
+		
 	}
 }

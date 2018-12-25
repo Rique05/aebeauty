@@ -1,6 +1,10 @@
 package com.fhdev.aebeauty.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Produto implements Serializable{
@@ -27,6 +32,10 @@ public class Produto implements Serializable{
 	@JoinColumn(name = "categoria_produto_id")
 	private CategoriaProduto categoria;
 	
+	//Set garante que não haverá items repedidos na coleção items
+	@OneToMany(mappedBy = "id.produto")//mapeado pelo atributo composto id
+	private Set<ItemPedido> itens= new HashSet<>();
+	
 	public Produto() {		
 	}
 
@@ -37,6 +46,18 @@ public class Produto implements Serializable{
 		this.valor = valor;
 		this.quantidadeDisponivel = quantidadeDisponivel;
 		this.categoria = categoria;
+	}
+	
+	public List<Pedido> getPedidos(){
+		
+		List<Pedido> lista = new ArrayList<>();
+		for(ItemPedido x : itens) {
+			
+			lista.add(x.getPedido());
+			
+		}
+		
+		return lista;
 	}
 
 	public Integer getId() {
@@ -77,6 +98,14 @@ public class Produto implements Serializable{
 
 	public void setCategoria(CategoriaProduto categoria) {
 		this.categoria = categoria;
+	}
+
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 
 	@Override

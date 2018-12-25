@@ -4,7 +4,7 @@ package com.fhdev.aebeauty.domain.enums;
 public enum StatusAgenda {
 	
 	ABERTA(1, "Aberta"),
-	PENDENTE(2, "Pendente"),
+	MARCADA(2, "Marcada"),
 	FINALIZADA(3, "Finalizada"),
 	CANCELADA(4, "Cancelada");
 	

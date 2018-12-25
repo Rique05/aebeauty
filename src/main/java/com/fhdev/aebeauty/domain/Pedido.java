@@ -2,6 +2,8 @@ package com.fhdev.aebeauty.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -32,6 +35,10 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "endereco_id")
 	private Endereco enderecoEntrega;
+	
+	//Set garante que não haverá items repedidos na coleção items
+	@OneToMany(mappedBy = "id.pedido")//mapeado pelo atributo composto id
+	private Set<ItemPedido> itens= new HashSet<>();
 	
 	public Pedido() {
 	}
@@ -82,6 +89,14 @@ public class Pedido implements Serializable{
 
 	public void setEnderecoEntrega(Endereco enderecoEntrega) {
 		this.enderecoEntrega = enderecoEntrega;
+	}
+
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 
 	@Override
