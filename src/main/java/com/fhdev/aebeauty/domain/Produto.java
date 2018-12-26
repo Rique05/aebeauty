@@ -36,6 +36,9 @@ public class Produto implements Serializable{
 	@OneToMany(mappedBy = "id.produto")//mapeado pelo atributo composto id
 	private Set<ItemPedido> itens= new HashSet<>();
 	
+	@OneToMany(mappedBy = "produto")
+	private List<CompraProdutoFornecedor> comprasProduto = new ArrayList<>();
+	
 	public Produto() {		
 	}
 
@@ -106,6 +109,14 @@ public class Produto implements Serializable{
 
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
+	}
+
+	public List<CompraProdutoFornecedor> getComprasProduto() {
+		return comprasProduto;
+	}
+
+	public void setComprasProduto(List<CompraProdutoFornecedor> comprasProduto) {
+		this.comprasProduto = comprasProduto;
 	}
 
 	@Override

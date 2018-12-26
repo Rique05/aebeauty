@@ -1,11 +1,14 @@
 package com.fhdev.aebeauty.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -20,6 +23,9 @@ public class Fornecedor implements Serializable{
 	@JoinColumn(name = "usuario_id")
 	@MapsId
 	private Usuario usuario;
+	
+	@OneToMany(mappedBy = "fornecedor")
+	private List<CompraProdutoFornecedor> comprasProduto = new ArrayList<>();
 	
 	public Fornecedor () {		
 	}
@@ -45,6 +51,14 @@ public class Fornecedor implements Serializable{
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public List<CompraProdutoFornecedor> getComprasProduto() {
+		return comprasProduto;
+	}
+
+	public void setComprasProduto(List<CompraProdutoFornecedor> comprasProduto) {
+		this.comprasProduto = comprasProduto;
 	}
 
 	@Override

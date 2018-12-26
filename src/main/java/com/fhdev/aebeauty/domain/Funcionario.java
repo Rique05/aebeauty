@@ -30,6 +30,9 @@ public class Funcionario implements Serializable{
 	@OneToMany(mappedBy = "funcionario")
 	private List<AgendaServico> agendasServicos = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "funcionario")
+	private List<CompraProdutoFornecedor> comprasProduto = new ArrayList<>();
+	
 	public Funcionario() {		
 	}
 
@@ -70,6 +73,14 @@ public class Funcionario implements Serializable{
 
 	public void setAgendasServicos(List<AgendaServico> agendasServicos) {
 		this.agendasServicos = agendasServicos;
+	}
+
+	public List<CompraProdutoFornecedor> getComprasProduto() {
+		return comprasProduto;
+	}
+
+	public void setComprasProduto(List<CompraProdutoFornecedor> comprasProduto) {
+		this.comprasProduto = comprasProduto;
 	}
 
 	@Override
