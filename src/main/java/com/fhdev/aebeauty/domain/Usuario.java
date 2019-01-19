@@ -25,14 +25,9 @@ public class Usuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	@JsonIgnore
 	private Integer id;
 	private String nome;
-	
-	@JsonIgnore
 	private String email;
-	
-	@JsonIgnore
 	private String senha;
 	
 	@JsonIgnore

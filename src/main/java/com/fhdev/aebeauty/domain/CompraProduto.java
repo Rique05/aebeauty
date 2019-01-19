@@ -30,6 +30,7 @@ public class CompraProduto implements Serializable{
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;

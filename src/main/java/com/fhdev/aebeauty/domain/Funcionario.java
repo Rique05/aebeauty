@@ -20,8 +20,6 @@ public class Funcionario implements Serializable{
 	
 	@Id
 	private Integer id;
-	
-	@JsonIgnore
 	private Integer tipoFuncionario;
 	
 	@OneToOne
