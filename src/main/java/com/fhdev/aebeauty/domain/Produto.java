@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable{
@@ -23,19 +24,21 @@ public class Produto implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(unique = true)
 	private String nome;
 	private Double valor;
 	private Integer quantidadeDisponivel;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "categoria_produto_id")
 	private CategoriaProduto categoria;
 	
-	//Set garante que não haverá items repedidos na coleção items
+	//Set garante que não haverá items repetidos na coleção items
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")//mapeado pelo atributo composto id
 	private Set<ItemPedido> itens= new HashSet<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<CompraProdutoFornecedor> comprasProduto = new ArrayList<>();
 	
@@ -51,6 +54,7 @@ public class Produto implements Serializable{
 		this.categoria = categoria;
 	}
 	
+	@JsonIgnore
 	public List<Pedido> getPedidos(){
 		
 		List<Pedido> lista = new ArrayList<>();
