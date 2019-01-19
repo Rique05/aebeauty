@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fhdev.aebeauty.domain.enums.StatusAgenda;
 
 @Entity
@@ -25,6 +26,7 @@ public class AgendaServico implements Serializable{
 	//Modificado (Na construção passamos um inteiro e o método getStatus retorna um objeto StatusAgenda)
 	private Integer status;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "servico_id")
 	private Servico servico;
@@ -33,6 +35,7 @@ public class AgendaServico implements Serializable{
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;

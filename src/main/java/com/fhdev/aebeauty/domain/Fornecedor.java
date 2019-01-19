@@ -11,6 +11,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Fornecedor implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -24,8 +26,9 @@ public class Fornecedor implements Serializable{
 	@MapsId
 	private Usuario usuario;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "fornecedor")
-	private List<CompraProdutoFornecedor> comprasProduto = new ArrayList<>();
+	private List<CompraProduto> comprasProdutos = new ArrayList<>();
 	
 	public Fornecedor () {		
 	}
@@ -53,12 +56,12 @@ public class Fornecedor implements Serializable{
 		this.cnpj = cnpj;
 	}
 
-	public List<CompraProdutoFornecedor> getComprasProduto() {
-		return comprasProduto;
+	public List<CompraProduto> getComprasProdutos() {
+		return comprasProdutos;
 	}
 
-	public void setComprasProduto(List<CompraProdutoFornecedor> comprasProduto) {
-		this.comprasProduto = comprasProduto;
+	public void setComprasProdutos(List<CompraProduto> comprasProduto) {
+		this.comprasProdutos = comprasProduto;
 	}
 
 	@Override

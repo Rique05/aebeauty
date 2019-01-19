@@ -12,7 +12,7 @@ import com.fhdev.aebeauty.domain.AgendaServico;
 import com.fhdev.aebeauty.domain.CategoriaProduto;
 import com.fhdev.aebeauty.domain.CategoriaServico;
 import com.fhdev.aebeauty.domain.Cidade;
-import com.fhdev.aebeauty.domain.CompraProdutoFornecedor;
+import com.fhdev.aebeauty.domain.CompraProduto;
 import com.fhdev.aebeauty.domain.Endereco;
 import com.fhdev.aebeauty.domain.Estado;
 import com.fhdev.aebeauty.domain.Fornecedor;
@@ -32,7 +32,7 @@ import com.fhdev.aebeauty.repositories.AgendaServicoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
 import com.fhdev.aebeauty.repositories.CategoriaServicoRepository;
 import com.fhdev.aebeauty.repositories.CidadeRepository;
-import com.fhdev.aebeauty.repositories.CompraProdutoFornecedorRepository;
+import com.fhdev.aebeauty.repositories.CompraProdutoRepository;
 import com.fhdev.aebeauty.repositories.EnderecoRepository;
 import com.fhdev.aebeauty.repositories.EstadoRepository;
 import com.fhdev.aebeauty.repositories.FornecedorRepository;
@@ -90,7 +90,7 @@ public class AebeautyApplication implements CommandLineRunner{
 	private ItemPedidoRepository itemPedidoRepository;
 	
 	@Autowired
-	private CompraProdutoFornecedorRepository compraProdutoFornecedorRepository;
+	private CompraProdutoRepository compraProdutoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AebeautyApplication.class, args);
@@ -275,15 +275,15 @@ public class AebeautyApplication implements CommandLineRunner{
 		
 		//Instâncias de CompraProdutoFornecedor
 		Produto p4 = new Produto(null, "Dove", 20.00, 5, catProd2);
-		CompraProdutoFornecedor compra1 = new CompraProdutoFornecedor(null, sdf1.parse("23-12-2018 22:03"), 15.00, 3, forn1, p4, func1);
-		CompraProdutoFornecedor compra2 = new CompraProdutoFornecedor(null, sdf1.parse("25-12-2018 8:36"), 10.00, 6, forn1, p4, func3);
+		CompraProduto compra1 = new CompraProduto(null, sdf1.parse("23-12-2018 22:03"), 15.00, 3, forn1, p4, func1);
+		CompraProduto compra2 = new CompraProduto(null, sdf1.parse("25-12-2018 8:36"), 10.00, 6, forn1, p4, func3);
 		
-		p4.getComprasProduto().addAll(Arrays.asList(compra1, compra2));
-		forn1.getComprasProduto().addAll(Arrays.asList(compra1,compra2));
-		func3.getComprasProduto().addAll(Arrays.asList(compra1,compra2));
+		p4.getComprasProdutos().addAll(Arrays.asList(compra1, compra2));
+		forn1.getComprasProdutos().addAll(Arrays.asList(compra1,compra2));
+		func3.getComprasProdutos().addAll(Arrays.asList(compra1,compra2));
 		
 		produtoRepository.save(p4);
-		compraProdutoFornecedorRepository.saveAll(Arrays.asList(compra1,compra2));
+		compraProdutoRepository.saveAll(Arrays.asList(compra1,compra2));
 		
 	}
 }

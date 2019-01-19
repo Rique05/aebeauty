@@ -40,7 +40,7 @@ public class Produto implements Serializable{
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
-	private List<CompraProdutoFornecedor> comprasProduto = new ArrayList<>();
+	private List<CompraProduto> comprasProdutos = new ArrayList<>();
 	
 	public Produto() {		
 	}
@@ -115,12 +115,12 @@ public class Produto implements Serializable{
 		this.itens = itens;
 	}
 
-	public List<CompraProdutoFornecedor> getComprasProduto() {
-		return comprasProduto;
+	public List<CompraProduto> getComprasProdutos() {
+		return comprasProdutos;
 	}
 
-	public void setComprasProduto(List<CompraProdutoFornecedor> comprasProduto) {
-		this.comprasProduto = comprasProduto;
+	public void setComprasProdutos(List<CompraProduto> comprasProduto) {
+		this.comprasProdutos = comprasProduto;
 	}
 
 	@Override

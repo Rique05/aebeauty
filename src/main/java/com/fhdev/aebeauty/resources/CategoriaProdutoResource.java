@@ -11,7 +11,7 @@ import com.fhdev.aebeauty.domain.CategoriaProduto;
 import com.fhdev.aebeauty.services.CategoriaProdutoService;
 
 @RestController
-@RequestMapping(value="/categorias")
+@RequestMapping(value="/categorias-produtos")
 public class CategoriaProdutoResource {
 	
 	@Autowired

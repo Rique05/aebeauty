@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class CompraProdutoFornecedor implements Serializable{
+public class CompraProduto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -34,11 +34,11 @@ public class CompraProdutoFornecedor implements Serializable{
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
 	
-	public CompraProdutoFornecedor() {
+	public CompraProduto() {
 		
 	}
 	
-	public CompraProdutoFornecedor(Integer id, Date dataCompra, Double valorProduto, Integer quantidadeComprada, Fornecedor fornecedor, Produto produto, Funcionario funcionario) {
+	public CompraProduto(Integer id, Date dataCompra, Double valorProduto, Integer quantidadeComprada, Fornecedor fornecedor, Produto produto, Funcionario funcionario) {
 		super();
 		this.id = id;
 		this.dataCompra = dataCompra;
@@ -121,7 +121,7 @@ public class CompraProdutoFornecedor implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CompraProdutoFornecedor other = (CompraProdutoFornecedor) obj;
+		CompraProduto other = (CompraProduto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -16,36 +16,50 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	@JsonIgnore
 	private Integer id;
 	private String nome;
+	
+	@JsonIgnore
 	private String email;
+	
+	@JsonIgnore
 	private String senha;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	//Lista de telefones do tipo Set<String> (Set não permite objetos repetidos)
 	//Entidade fraca
+	@JsonIgnore
 	@ElementCollection
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private List<AgendaServico> agendasServicos = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	//Necessário para não acontecer o erro de entidade transiente ao salvar o funcionário e o usuário dele
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
 	private Funcionario funcionario;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
 	private Fornecedor fornecedor;
 	

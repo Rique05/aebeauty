@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fhdev.aebeauty.domain.enums.TipoFuncionario;
 
 @Entity
@@ -20,6 +21,7 @@ public class Funcionario implements Serializable{
 	@Id
 	private Integer id;
 	
+	@JsonIgnore
 	private Integer tipoFuncionario;
 	
 	@OneToOne
@@ -27,11 +29,13 @@ public class Funcionario implements Serializable{
 	@MapsId //Anotação necessária para o funcionário herdar o mesmo id do usuário dele	
 	private Usuario usuario;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "funcionario")
 	private List<AgendaServico> agendasServicos = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "funcionario")
-	private List<CompraProdutoFornecedor> comprasProduto = new ArrayList<>();
+	private List<CompraProduto> comprasProdutos = new ArrayList<>();
 	
 	public Funcionario() {		
 	}
@@ -75,12 +79,12 @@ public class Funcionario implements Serializable{
 		this.agendasServicos = agendasServicos;
 	}
 
-	public List<CompraProdutoFornecedor> getComprasProduto() {
-		return comprasProduto;
+	public List<CompraProduto> getComprasProdutos() {
+		return comprasProdutos;
 	}
 
-	public void setComprasProduto(List<CompraProdutoFornecedor> comprasProduto) {
-		this.comprasProduto = comprasProduto;
+	public void setComprasProdutos(List<CompraProduto> comprasProduto) {
+		this.comprasProdutos = comprasProduto;
 	}
 
 	@Override
