@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fhdev.aebeauty.domain.enums.TipoServico;
 
 @Entity
@@ -29,10 +30,12 @@ public class Servico implements Serializable {
 	private String descricao;
 	private Integer tipoServico;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "categoria_servico_id")
 	private CategoriaServico categoria;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "servico")
 	private List<AgendaServico> agendasServicos = new ArrayList<>(); 
 	
