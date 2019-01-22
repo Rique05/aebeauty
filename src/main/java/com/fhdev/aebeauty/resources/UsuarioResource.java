@@ -9,30 +9,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fhdev.aebeauty.domain.CategoriaServico;
-import com.fhdev.aebeauty.services.CategoriaServicoService;
+import com.fhdev.aebeauty.domain.Usuario;
+import com.fhdev.aebeauty.services.UsuarioService;
 
 @RestController
-@RequestMapping(value="/categorias-servicos")
-public class CategoriaServicoResource {
+@RequestMapping(value="/usuarios")
+public class UsuarioResource {
 	
 	@Autowired
-	private CategoriaServicoService service;
+	private UsuarioService service;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> findAll(){
 		
-		List<CategoriaServico> categorias = service.findAll();
-		return ResponseEntity.ok().body(categorias);
+		List<Usuario> usuarios = service.findAll();
+		return ResponseEntity.ok().body(usuarios);
 		
 	}
 	
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){
 		
-		CategoriaServico categoria = service.find(id);
-		return ResponseEntity.ok().body(categoria);
+		Usuario usuario = service.find(id);
+		return ResponseEntity.ok().body(usuario);
 		
 	}
-	
+
 }

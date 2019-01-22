@@ -1,5 +1,6 @@
 package com.fhdev.aebeauty.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fhdev.aebeauty.domain.CategoriaProduto;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
+import com.fhdev.aebeauty.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaProdutoService {
@@ -14,10 +16,18 @@ public class CategoriaProdutoService {
 	@Autowired
 	private CategoriaProdutoRepository repo;
 	
+	public List<CategoriaProduto> findAll(){
+		
+		List<CategoriaProduto> categorias = repo.findAll();
+		return categorias;
+		
+	}
+	
 	public CategoriaProduto find(Integer id) {
 		
 		Optional<CategoriaProduto> categoria = repo.findById(id);
-		return categoria.orElse(null);
+		return categoria.orElseThrow(() -> new ObjectNotFoundException( //Exceção personalizada para busca
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + CategoriaProduto.class.getName()));
 		
 	}
 

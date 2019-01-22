@@ -1,12 +1,14 @@
 package com.fhdev.aebeauty.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fhdev.aebeauty.domain.CompraProduto;
 import com.fhdev.aebeauty.repositories.CompraProdutoRepository;
+import com.fhdev.aebeauty.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CompraProdutoService {
@@ -19,6 +21,13 @@ public class CompraProdutoService {
 		List<CompraProduto> compras = repo.findAll();		
 		return compras; //Necessário ajustes de exceções	
 		
+	}
+	
+	public CompraProduto find(Integer id) {
+		
+		Optional<CompraProduto> compra = repo.findById(id);
+		return compra.orElseThrow(()-> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: "+ id +"Tipo: "+ CompraProduto.class.getName()));
 	}
 
 }

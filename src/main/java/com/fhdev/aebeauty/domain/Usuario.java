@@ -30,13 +30,11 @@ public class Usuario implements Serializable{
 	private String email;
 	private String senha;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	//Lista de telefones do tipo Set<String> (Set não permite objetos repetidos)
 	//Entidade fraca
-	@JsonIgnore
 	@ElementCollection
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();

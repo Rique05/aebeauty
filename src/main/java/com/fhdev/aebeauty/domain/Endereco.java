@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Endereco implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -26,6 +28,7 @@ public class Endereco implements Serializable{
 	@JoinColumn(name = "cidade_id") //Como não necessita de a cidade conhecer o endereço então foi mapeado aqui e não necessita informar na classe cidade
 	private Cidade cidade;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;

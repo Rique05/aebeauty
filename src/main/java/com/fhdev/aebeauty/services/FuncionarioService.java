@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fhdev.aebeauty.domain.CategoriaProduto;
 import com.fhdev.aebeauty.domain.Funcionario;
 import com.fhdev.aebeauty.repositories.FuncionarioRepository;
+import com.fhdev.aebeauty.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class FuncionarioService {
@@ -25,7 +27,8 @@ public class FuncionarioService {
 	public Funcionario find(Integer id) {
 		
 		Optional<Funcionario> funcionario = repo.findById(id);
-		return funcionario.orElse(null);
+		return funcionario.orElseThrow(() -> new ObjectNotFoundException( //Exceção personalizada para busca
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + CategoriaProduto.class.getName()));
 		
 	}
 	
