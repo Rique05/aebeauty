@@ -20,8 +20,16 @@ public class FuncionarioService {
 	public List<Funcionario> findAll() {
 		
 		List<Funcionario> funcionarios = repo.findAll();
-		return funcionarios;
 		
+		//Condição que verifica se a lista de funcionarios está vazia. Se estiver, lança a exceção
+		if(funcionarios.isEmpty()) {
+			
+			throw new ObjectNotFoundException(
+					"Objetos não encontrados!, Tipo: " + Funcionario.class.getName());
+
+		}
+		
+		return funcionarios;
 	}
 	
 	public Funcionario find(Integer id) {

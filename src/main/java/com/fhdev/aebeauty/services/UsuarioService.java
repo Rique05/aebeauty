@@ -19,8 +19,15 @@ public class UsuarioService {
 	public List<Usuario> findAll(){
 		
 		List<Usuario> usuarios = repo.findAll();
-		return usuarios;
 		
+		//Condição que verifica se a lista de usuários está vazia. Se estiver, lança a exceção
+		if(usuarios.isEmpty()) {
+			
+			throw new ObjectNotFoundException(
+					"Objetos não encontrados!, Tipo: " + Usuario.class.getName());
+		}
+		
+		return usuarios;
 	}
 	
 	public Usuario find(Integer id) {

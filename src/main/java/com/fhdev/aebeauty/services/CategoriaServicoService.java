@@ -20,8 +20,16 @@ public class CategoriaServicoService {
 	public List<CategoriaServico> findAll(){
 		
 		List<CategoriaServico> categorias = repo.findAll();
-		return categorias;
 		
+		//Condição que verifica se a lista de categorias está vazia. Se estiver, lança a exceção
+				if(categorias.isEmpty()) {
+					
+					throw new ObjectNotFoundException(
+							"Objetos não encontrados!, Tipo: " + CategoriaServico.class.getName());
+		
+				}
+	
+		return categorias;
 	}
 
 	public CategoriaServico find(Integer id) {
