@@ -60,10 +60,8 @@ public class Produto implements Serializable{
 		List<Pedido> lista = new ArrayList<>();
 		for(ItemPedido x : itens) {
 			
-			lista.add(x.getPedido());
-			
+			lista.add(x.getPedido());	
 		}
-		
 		return lista;
 	}
 

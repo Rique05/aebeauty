@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class CompraProduto implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -18,7 +20,10 @@ public class CompraProduto implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	//Anotação para formatar a data e a hora da compra
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm", locale ="pt-BR", timezone="Brazil/East")
 	private Date dataCompra;
+	
 	private Double valorProduto;
 	private Integer quantidadeComprada;
 	

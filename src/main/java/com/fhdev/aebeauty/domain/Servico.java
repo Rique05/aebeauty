@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fhdev.aebeauty.domain.enums.TipoServico;
 
@@ -26,7 +27,11 @@ public class Servico implements Serializable {
 	
 	private String nome;
 	private Double valor;
+	
+	//Anotação que formata o tempo necessário para a execução do serviço
+	@JsonFormat(pattern="HH:mm", locale="pt-BR", timezone="Brazil/East")
 	private Date tempoExecucao;
+	
 	private String descricao;
 	private Integer tipoServico;
 	
