@@ -21,11 +21,11 @@ public class CategoriaProdutoService {
 		List<CategoriaProduto> categorias = repo.findAll();
 		
 		//Condição que verifica se a lista de categorias está vazia. Se estiver, lança a exceção
-				if(categorias.isEmpty()) {
+		if(categorias.isEmpty()) {
 					
-					throw new ObjectNotFoundException(
-							"Objetos não encontrados!, Tipo: " + CategoriaProduto.class.getName());
-				}
+		throw new ObjectNotFoundException(
+					"Objetos não encontrados!, Tipo: " + CategoriaProduto.class.getName());
+		}
 				
 		return categorias;	
 	}

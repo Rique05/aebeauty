@@ -22,12 +22,11 @@ public class CategoriaServicoService {
 		List<CategoriaServico> categorias = repo.findAll();
 		
 		//Condição que verifica se a lista de categorias está vazia. Se estiver, lança a exceção
-				if(categorias.isEmpty()) {
+		if(categorias.isEmpty()) {
 					
-					throw new ObjectNotFoundException(
-							"Objetos não encontrados!, Tipo: " + CategoriaServico.class.getName());
-		
-				}
+			throw new ObjectNotFoundException(
+					"Objetos não encontrados!, Tipo: " + CategoriaServico.class.getName());
+		}
 	
 		return categorias;
 	}
@@ -36,7 +35,16 @@ public class CategoriaServicoService {
 		
 		Optional<CategoriaServico> categoria = repo.findById(id);
 		return categoria.orElseThrow(() -> new ObjectNotFoundException( //Exceção personalizada para busca
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + CategoriaProduto.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + CategoriaProduto.class.getName()));	
+	}
+	
+	//Metodo responsável por inserir uma categoria de servico
+	public CategoriaServico insert(CategoriaServico categoria) {
+		
+		categoria.setId(null);
+		
+		//Retorna a categoria para o recurso para que a URI possa ser criada 
+		return repo.save(categoria);
 		
 	}
 	
