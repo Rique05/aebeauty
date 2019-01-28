@@ -26,7 +26,7 @@ public class Servico implements Serializable {
 	private Integer id;
 	
 	private String nome;
-	private Double valor;
+	private Double preco;
 	
 	//Anotação que formata o tempo necessário para a execução do serviço
 	@JsonFormat(pattern="HH:mm", locale="pt-BR", timezone="Brazil/East")
@@ -47,11 +47,11 @@ public class Servico implements Serializable {
 	public Servico() {
 	}
 
-	public Servico(Integer id, String nome, Double valor, Date tempoExecucao, String descricao, TipoServico tipoServico,CategoriaServico categoria) {
+	public Servico(Integer id, String nome, Double preco, Date tempoExecucao, String descricao, TipoServico tipoServico,CategoriaServico categoria) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.valor = valor;
+		this.preco = preco;
 		this.tempoExecucao = tempoExecucao;
 		this.descricao = descricao;
 		this.tipoServico = tipoServico.getCodigo();
@@ -74,12 +74,12 @@ public class Servico implements Serializable {
 		this.nome = nome;
 	}
 
-	public Double getValor() {
-		return valor;
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = valor;
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
 
 	public Date getTempoExecucao() {
