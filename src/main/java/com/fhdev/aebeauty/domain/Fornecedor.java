@@ -56,6 +56,14 @@ public class Fornecedor implements Serializable{
 		this.cnpj = cnpj;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public List<CompraProduto> getComprasProdutos() {
 		return comprasProdutos;
 	}
