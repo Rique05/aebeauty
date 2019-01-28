@@ -17,19 +17,19 @@ public class ItemPedido implements Serializable{
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
 	private Double desconto;
-	private Integer quantidade;
+	private Integer quantidadeComprada;
 	private Double preco;
 	
 	public ItemPedido() {
 		
 	}
 
-	public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
+	public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidadeComprada, Double preco) {
 		super();
 		id.setPedido(pedido);
 		id.setProduto(produto);
 		this.desconto = desconto;
-		this.quantidade = quantidade;
+		this.quantidadeComprada = quantidadeComprada;
 		this.preco = preco;
 	}
 	
@@ -58,12 +58,12 @@ public class ItemPedido implements Serializable{
 		this.desconto = desconto;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
+	public Integer getQuantidadeComprada() {
+		return quantidadeComprada;
 	}
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantidadeComprada(Integer quantidadeComprada) {
+		this.quantidadeComprada = quantidadeComprada;
 	}
 
 	public Double getPreco() {

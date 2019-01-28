@@ -25,7 +25,7 @@ public class Produto implements Serializable{
 	private Integer id;
 	
 	private String nome;
-	private Double valor;
+	private Double preco;
 	private Integer quantidadeDisponivel;
 	
 	@JsonIgnore
@@ -45,11 +45,11 @@ public class Produto implements Serializable{
 	public Produto() {		
 	}
 
-	public Produto(Integer id, String nome, Double valor, Integer quantidadeDisponivel, CategoriaProduto categoria) {
+	public Produto(Integer id, String nome, Double preco, Integer quantidadeDisponivel, CategoriaProduto categoria) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.valor = valor;
+		this.preco = preco;
 		this.quantidadeDisponivel = quantidadeDisponivel;
 		this.categoria = categoria;
 	}
@@ -81,12 +81,12 @@ public class Produto implements Serializable{
 		this.nome = nome;
 	}
 
-	public Double getValor() {
-		return valor;
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = valor;
+	public void setValor(Double preco) {
+		this.preco = preco;
 	}
 
 	public Integer getQuantidadeDisponivel() {

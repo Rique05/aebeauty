@@ -5,9 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fhdev.aebeauty.domain.CategoriaProduto;
+import com.fhdev.aebeauty.domain.Produto;
 import com.fhdev.aebeauty.repositories.CategoriaProdutoRepository;
+import com.fhdev.aebeauty.repositories.ProdutoRepository;
 import com.fhdev.aebeauty.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -15,6 +18,9 @@ public class CategoriaProdutoService {
 	
 	@Autowired
 	private CategoriaProdutoRepository repo;
+	
+	@Autowired
+	private ProdutoRepository prodRepo;
 	
 	public List<CategoriaProduto> findAll(){
 		
@@ -38,10 +44,20 @@ public class CategoriaProdutoService {
 		
 	}
 	
+	@Transactional
 	public CategoriaProduto insert(CategoriaProduto obj) {
 		
 		obj.setId(null); //O id deve ser nulo para que o método save considere uma inserção nova, não uma atualização
-		return repo.save(obj);
+		obj = repo.save(obj); //Salva no banco de dados e retorna o objeto com o id criado automaticamente pelo banco
+		
+		//Define a categoria a qual os produtos cadastrados da categoria pertencem
+		for (Produto x : obj.getProdutos()) {
+			x.setCategoria(obj);
+		}
+		
+		//Salva os produtos cadastrados da categoria no banco de dados
+		prodRepo.saveAll(obj.getProdutos());
+		return obj;
 	}
 
 }
